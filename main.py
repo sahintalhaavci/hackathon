@@ -11,7 +11,10 @@ def get_html(url):
 def get_soup(html):
     soup = BS(html , 'lxml')
     return soup
+
+
 def get_page(soup):
+
     page = soup.find_all('div',class_='row')
     for pages in page:
         title = pages.find('div',class_='vm-col-1').text.split()
@@ -42,20 +45,14 @@ def write_csv(data: dict) -> None:
         fieldnames = ['title','price','image']
         writer = csv.DictWriter(csv_file, delimiter='/', fieldnames=fieldnames)
         writer.writerow(data)
-def site (soup):
-    url = 'https://enter.kg/monitory_bishkek/results,101-100'
-    html = get_html(url=url)
-    soup = get_soup(html=html)
-    get_page(soup)
+
+
+
 def main():
-    url = 'https://enter.kg/monitory_bishkek'
+    url = 'https://enter.kg/computers/noutbuki_bishkek'
+    
     html = get_html(url=url)
     soup = get_soup(html=html)
     get_page(soup)
-    quest = input('Хотите Посмотреть 2. Страницу? :').lower()
-    if quest == 'да':
-        site(soup)
-    elif quest == 'нет':
-        print('Пока')
 
 main()
